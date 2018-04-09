@@ -25,6 +25,7 @@ public class Menus extends JFrame implements ActionListener {
 	protected Color selectedColor;
 	protected JMenuBar bar1;
 	protected JMenu figuresMenu, colorsMenu;
+	protected JButton paintButton, fillDrawMode, multipleMode, mode, disposeShape;
 	
 	public Menus(String[] figures, Color[] colors) {
 		super("Shape drawing coloring thing.exe");
@@ -93,6 +94,28 @@ public class Menus extends JFrame implements ActionListener {
 			
 		}
 		
+	}
+	
+	class PaintOnPanel extends JPanel {
+		
+		public void paintComponent(Graphics g) {
+			switch(selectedShape) {
+			case "Rectangle":
+				break;
+			case "Oval":
+				break;
+			case "Circle":
+				break;
+			case "Triangle":
+				break;
+			case "Line":
+				break;
+			case "Segment":
+				break;
+			case "Arc":
+				break;
+			}
+		}
 	}
 	
 }
