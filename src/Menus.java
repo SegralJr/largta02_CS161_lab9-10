@@ -29,8 +29,29 @@ public class Menus extends JFrame implements ActionListener {
 	
 	public Menus(String[] figures, Color[] colors) {
 		super("Shape drawing coloring thing.exe");
+		
+		// Menus
 		figuresMenu = new JMenu("Figures");
+		JMenuItem item;
+		for(int k = 0; k < figures.length; k++) {
+			figuresMenu.addSeparator();
+			item = new JMenuItem(figures[k]);
+			item.addActionListener(this);
+			figuresMenu.add(item);
+		}
+		
 		colorsMenu = new JMenu("Colors");
+		JMenuItem item2;
+		for(int k = 0; k < colors.length; k++) {
+			colorsMenu.addSeparator();
+			item2 = new JMenuItem();
+		}
+		
+		// Menu bar
+		JMenuBar bar1 = new JMenuBar();
+		setJMenuBar(bar1);
+		bar1.add(figuresMenu);
+		bar1.add(colorsMenu);
 		
 		buildWindow();
 	}
@@ -41,6 +62,23 @@ public class Menus extends JFrame implements ActionListener {
 		south = new JPanel();
 		west = new JPanel();
 		center = new JPanel();
+		
+		Container pane = getContentPane();
+		
+		//paintButton = new JButton("PAINTBUTTON");
+		disposeShape = new JButton("DISPOSE_SHAPE");
+		fillDrawMode = new JButton("FILL_DRAW_MODE");
+		multipleMode = new JButton("MULTIPLE_MODE");
+		
+		bar1 = new JMenuBar();
+		
+		north.setLayout(new GridLayout(0,4));
+		north.add(paintButton = new JButton("PAINTBUTTON"));
+		north.add(disposeShape);
+		north.add(fillDrawMode);
+		north.add(multipleMode);
+		
+		pane.add(north);
 		
 		setSize(500, 250);
 		setLocation(400, 400);
