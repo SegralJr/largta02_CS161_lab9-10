@@ -17,7 +17,7 @@ public class Menus extends JFrame implements ActionListener {
 	 * This is the main code
 	 */
 	
-	JPanel north, east, south, west, center;
+	JPanel east, center;
 	
 	protected String[] figureItems;
 	protected Color[] colors;
@@ -26,9 +26,14 @@ public class Menus extends JFrame implements ActionListener {
 	protected JMenuBar bar1;
 	protected JMenu figuresMenu, colorsMenu;
 	protected JButton paintButton, fillDrawMode, multipleMode, mode, disposeShape;
+	protected ButtonGroup buttonGroup;
+	protected JRadioButton colorsRadio;
 	
 	public Menus(String[] figures, Color[] colors) {
 		super("Shape drawing coloring thing.exe");
+		
+		colorsRadio = new JRadioButton();
+		buttonGroup = new ButtonGroup();
 		
 		// Menus
 		figuresMenu = new JMenu("Figures");
@@ -40,11 +45,16 @@ public class Menus extends JFrame implements ActionListener {
 			figuresMenu.add(item);
 		}
 		
+		
 		colorsMenu = new JMenu("Colors");
 		JMenuItem item2;
 		for(int k = 0; k < colors.length; k++) {
 			colorsMenu.addSeparator();
-			item2 = new JMenuItem();
+			item2 = new JRadioButtonMenuItem();
+			item2.addActionListener(this);
+			item2.setBackground(colors[k]);
+			buttonGroup.add(item2);
+			colorsMenu.add(item2);
 		}
 		
 		// Menu bar
@@ -57,38 +67,45 @@ public class Menus extends JFrame implements ActionListener {
 	}
 	
 	public void buildWindow() {
-		north = new JPanel();
 		east = new JPanel();
-		south = new JPanel();
-		west = new JPanel();
 		center = new JPanel();
+		PaintOnPanel paintPanel = new PaintOnPanel();
 		
 		Container pane = getContentPane();
 		
-		//paintButton = new JButton("PAINTBUTTON");
-		disposeShape = new JButton("DISPOSE_SHAPE");
-		fillDrawMode = new JButton("FILL_DRAW_MODE");
-		multipleMode = new JButton("MULTIPLE_MODE");
-		
 		bar1 = new JMenuBar();
 		
-		north.setLayout(new GridLayout(0,4));
-		north.add(paintButton = new JButton("PAINTBUTTON"));
-		north.add(disposeShape);
-		north.add(fillDrawMode);
-		north.add(multipleMode);
+		center.setLayout(new GridLayout(0,4));
+		center.add(paintButton = new JButton("PAINTBUTTON"), BorderLayout.NORTH);
+		center.add(disposeShape = new JButton("DISPOSE_SHAPE"), BorderLayout.NORTH);
+		center.add(fillDrawMode = new JButton("FILL_DRAW_MODE"), BorderLayout.NORTH);
+		center.add(multipleMode = new JButton("MULTIPLE_MODE"), BorderLayout.NORTH);
+		east.setBackground(Color.green);
 		
-		pane.add(north);
+		pane.add(east, BorderLayout.CENTER);
+		pane.add(center, BorderLayout.NORTH);
+		//pane.add(paintPanel);
 		
 		setSize(500, 250);
 		setLocation(400, 400);
 		setVisible(true);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == "PAINTBUTTON") {
+			
+		}
+		else if(e.getSource() == "DISPOSE_SHAPE") {
+			
+		}
+		else if(e.getSource() == "FILL_DRAW_MODE") {
+			
+		}
+		else if(e.getSource() == "MULTIPLE_MODE") {
+			
+		}
 	}
 	
 	public void buildFigures(String[] fig) {
@@ -134,11 +151,16 @@ public class Menus extends JFrame implements ActionListener {
 		
 	}
 	
+	@SuppressWarnings("serial")
 	class PaintOnPanel extends JPanel {
 		
 		public void paintComponent(Graphics g) {
+			setBackground(Color.magenta);
+			super.paintComponent(g);
+			
 			switch(selectedShape) {
 			case "Rectangle":
+				g.drawRect(20, 20, 8, 6);
 				break;
 			case "Oval":
 				break;
@@ -153,6 +175,9 @@ public class Menus extends JFrame implements ActionListener {
 			case "Arc":
 				break;
 			}
+			
+			g.setColor(selectedColor);
+			
 		}
 	}
 	
