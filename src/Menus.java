@@ -36,6 +36,10 @@ public class Menus extends JFrame implements ActionListener {
 	public Menus(String[] figures, Color[] colors) {
 		super("Shape drawing coloring thing.exe");
 		
+		// Creates the button groups
+		colorsRadio = new JRadioButton();
+		buttonGroup = new ButtonGroup();
+		
 		// Menus
 		buildFigures(figures);
 		buildColors(colors);
@@ -58,10 +62,6 @@ public class Menus extends JFrame implements ActionListener {
 		
 		// Instantiates menu bar
 		bar1 = new JMenuBar();
-		
-		// Creates the button groups
-		colorsRadio = new JRadioButton();
-		buttonGroup = new ButtonGroup();
 		
 		buttonPanel.setLayout(new GridLayout(0,4));
 		buttonPanel.add(paintButton = new JButton("PAINTBUTTON"), BorderLayout.NORTH);
@@ -126,9 +126,12 @@ public class Menus extends JFrame implements ActionListener {
 		figuresArr = new JMenuItem[figures.length];
 		figuresMenu = new JMenu("Figures");
 		for(int k = 0; k < figures.length; k++) {
+			figuresArr[k] = new JMenuItem();
 			figuresMenu.addSeparator();
 			figuresArr[k] = (new JMenuItem(figures[k]));
+			figuresArr[k].addActionListener(this);
 			figuresMenu.add(figuresArr[k]);
+			figuresMenu.addActionListener(this);
 		}
 		
 	}
@@ -142,7 +145,9 @@ public class Menus extends JFrame implements ActionListener {
 			colorsMenu.addSeparator();
 			colorsArr[k].setBackground(colors[k]);
 			buttonGroup.add(colorsArr[k]);
+			colorsArr[k].addActionListener(this);
 			colorsMenu.add(colorsArr[k]);
+			colorsMenu.addActionListener(this);
 		}
 	}
 	
@@ -157,7 +162,7 @@ public class Menus extends JFrame implements ActionListener {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			selectedShape = ((JMenuItem) e.getSource()).getText();
+			selectedShape = e.getActionCommand();
 			System.out.println("Memes");
 		}
 		
@@ -167,7 +172,8 @@ public class Menus extends JFrame implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			selectedColor = ((JRadioButtonMenuItem) e.getSource()).getBackground();
+			
+			System.out.println("KNSDFO:RJNSDLRFK");
 			
 		}
 		
