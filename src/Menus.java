@@ -17,7 +17,7 @@ public class Menus extends JFrame implements ActionListener {
 	 * This is the main code
 	 */
 	
-	JPanel east, center;
+	JPanel east, center, buttonPanel, containerPanel;
 	
 	protected String[] figureItems;
 	protected Color[] colors;
@@ -28,6 +28,8 @@ public class Menus extends JFrame implements ActionListener {
 	protected JButton paintButton, fillDrawMode, multipleMode, mode, disposeShape;
 	protected ButtonGroup buttonGroup;
 	protected JRadioButton colorsRadio;
+	protected JMenuItem[] figuresArr;
+	protected JRadioButtonMenuItem[] colorsArr;
 	
 	public Menus(String[] figures, Color[] colors) {
 		super("Shape drawing coloring thing.exe");
@@ -35,26 +37,25 @@ public class Menus extends JFrame implements ActionListener {
 		colorsRadio = new JRadioButton();
 		buttonGroup = new ButtonGroup();
 		
+		figuresArr = new JMenuItem[figures.length];
+		colorsArr = new JRadioButtonMenuItem[colors.length];
+		
 		// Menus
 		figuresMenu = new JMenu("Figures");
-		JMenuItem item;
 		for(int k = 0; k < figures.length; k++) {
 			figuresMenu.addSeparator();
-			item = new JMenuItem(figures[k]);
-			item.addActionListener(this);
-			figuresMenu.add(item);
+			figuresArr[k] = (new JMenuItem(figures[k]));
+			figuresMenu.add(figuresArr[k]);
 		}
 		
 		
 		colorsMenu = new JMenu("Colors");
-		JMenuItem item2;
 		for(int k = 0; k < colors.length; k++) {
+			colorsArr[k] = new JRadioButtonMenuItem();
 			colorsMenu.addSeparator();
-			item2 = new JRadioButtonMenuItem();
-			item2.addActionListener(this);
-			item2.setBackground(colors[k]);
-			buttonGroup.add(item2);
-			colorsMenu.add(item2);
+			colorsArr[k].setBackground(colors[k]);
+			buttonGroup.add(colorsArr[k]);
+			colorsMenu.add(colorsArr[k]);
 		}
 		
 		// Menu bar
@@ -69,24 +70,36 @@ public class Menus extends JFrame implements ActionListener {
 	public void buildWindow() {
 		east = new JPanel();
 		center = new JPanel();
+		buttonPanel = new JPanel();
+		containerPanel = new JPanel();
 		PaintOnPanel paintPanel = new PaintOnPanel();
 		
-		Container pane = getContentPane();
+		Container window = getContentPane();
 		
 		bar1 = new JMenuBar();
 		
-		center.setLayout(new GridLayout(0,4));
-		center.add(paintButton = new JButton("PAINTBUTTON"), BorderLayout.NORTH);
-		center.add(disposeShape = new JButton("DISPOSE_SHAPE"), BorderLayout.NORTH);
-		center.add(fillDrawMode = new JButton("FILL_DRAW_MODE"), BorderLayout.NORTH);
-		center.add(multipleMode = new JButton("MULTIPLE_MODE"), BorderLayout.NORTH);
-		east.setBackground(Color.green);
+		buttonPanel.setLayout(new GridLayout(0,4));
+		buttonPanel.add(paintButton = new JButton("PAINTBUTTON"), BorderLayout.NORTH);
+		buttonPanel.add(disposeShape = new JButton("DISPOSE_SHAPE"), BorderLayout.NORTH);
+		buttonPanel.add(fillDrawMode = new JButton("FILL_DRAW_MODE"), BorderLayout.NORTH);
+		buttonPanel.add(multipleMode = new JButton("MULTIPLE_MODE"), BorderLayout.NORTH);
 		
-		pane.add(east, BorderLayout.CENTER);
-		pane.add(center, BorderLayout.NORTH);
-		//pane.add(paintPanel);
+		containerPanel.setLayout(new BorderLayout(10,0));
+		containerPanel.add(buttonPanel, BorderLayout.NORTH);
+		paintPanel.repaint();
+		containerPanel.add(paintPanel, BorderLayout.CENTER);
+		east.add(containerPanel);
 		
-		setSize(500, 250);
+		east.setBackground(Color.YELLOW);
+		center.setBackground(Color.GREEN);
+		window.setBackground(Color.BLACK);
+		
+		//window.setLayout(new BorderLayout(0,10));
+		
+		window.add(east, BorderLayout.EAST);
+		window.add(center, BorderLayout.CENTER);
+		
+		setSize(700, 650);
 		setLocation(400, 400);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -155,12 +168,14 @@ public class Menus extends JFrame implements ActionListener {
 	class PaintOnPanel extends JPanel {
 		
 		public void paintComponent(Graphics g) {
-			setBackground(Color.magenta);
+			setBackground(Color.MAGENTA);
 			super.paintComponent(g);
+			
+			if(selectedShape != null && selectedColor != null) {
 			
 			switch(selectedShape) {
 			case "Rectangle":
-				g.drawRect(20, 20, 8, 6);
+				g.drawRect(200, 200, 80, 60);
 				break;
 			case "Oval":
 				break;
@@ -178,6 +193,7 @@ public class Menus extends JFrame implements ActionListener {
 			
 			g.setColor(selectedColor);
 			
+			}
 		}
 	}
 	
