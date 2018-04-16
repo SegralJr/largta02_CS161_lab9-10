@@ -19,7 +19,7 @@ public class Test {
 	
 	public static void main(String args[]) {
 		
-		String[] figures = {"Ranctangle", "Oval", "Circle", "Triangle", "Line", "Segment", "Arc"};
+		String[] figures = {"Renctangle", "Oval", "Circle", "Triangle", "Line", "Segment", "Arc"};
 		Color[] colors = {Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW, Color.PINK, Color.MAGENTA, Color.ORANGE, Color.CYAN, Color.BLACK, Color.WHITE};
 		new Menus(figures, colors);
 	}

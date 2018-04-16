@@ -30,6 +30,8 @@ public class Menus extends JFrame implements ActionListener {
 	protected JRadioButton colorsRadio;
 	protected JMenuItem[] figuresArr;
 	protected JRadioButtonMenuItem[] colorsArr;
+	protected PaintOnPanel paintPanel = new PaintOnPanel();
+	protected boolean firstTime = true;
 	
 	public Menus(String[] figures, Color[] colors) {
 		super("Shape drawing coloring thing.exe");
@@ -72,7 +74,6 @@ public class Menus extends JFrame implements ActionListener {
 		center = new JPanel();
 		buttonPanel = new JPanel();
 		containerPanel = new JPanel();
-		PaintOnPanel paintPanel = new PaintOnPanel();
 		
 		Container window = getContentPane();
 		
@@ -83,6 +84,11 @@ public class Menus extends JFrame implements ActionListener {
 		buttonPanel.add(disposeShape = new JButton("DISPOSE_SHAPE"), BorderLayout.NORTH);
 		buttonPanel.add(fillDrawMode = new JButton("FILL_DRAW_MODE"), BorderLayout.NORTH);
 		buttonPanel.add(multipleMode = new JButton("MULTIPLE_MODE"), BorderLayout.NORTH);
+		
+		paintButton.addActionListener(this);
+		disposeShape.addActionListener(this);
+		fillDrawMode.addActionListener(this);
+		multipleMode.addActionListener(this);
 		
 		containerPanel.setLayout(new BorderLayout(10,0));
 		containerPanel.add(buttonPanel, BorderLayout.NORTH);
@@ -107,16 +113,26 @@ public class Menus extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == "PAINTBUTTON") {
+		System.out.println("A button was pressed");
+		if(e.getActionCommand() == "PAINTBUTTON") {
+			if(selectedShape == null) {
+				JOptionPane.showMessageDialog(null, "Please select the shape");
+			}
+			else if(selectedColor == null) {
+				JOptionPane.showMessageDialog(null, "Please select the color");
+			}
+			else {
+			firstTime = true;
+			paintPanel.repaint();
+			}
+		}
+		else if(e.getActionCommand() == "DISPOSE_SHAPE") {
 			
 		}
-		else if(e.getSource() == "DISPOSE_SHAPE") {
+		else if(e.getActionCommand() == "FILL_DRAW_MODE") {
 			
 		}
-		else if(e.getSource() == "FILL_DRAW_MODE") {
-			
-		}
-		else if(e.getSource() == "MULTIPLE_MODE") {
+		else if(e.getActionCommand() == "MULTIPLE_MODE") {
 			
 		}
 	}
@@ -140,16 +156,18 @@ public class Menus extends JFrame implements ActionListener {
 			figuresMenu.add(menuItemArr[k]);
 		}
 	}
-	
+	/*
+	 * I don't know what this was used for but until I discover it it's commented out
 	public void buildJMenuBar() {
 		
 	}
-	
+	*/
 	class FigureListener implements ActionListener {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			selectedShape = ((JMenuItem) e.getSource()).getText();
+			System.out.println("Memes");
 		}
 		
 	}
@@ -172,26 +190,29 @@ public class Menus extends JFrame implements ActionListener {
 			super.paintComponent(g);
 			
 			if(selectedShape != null && selectedColor != null) {
-			
-			switch(selectedShape) {
-			case "Rectangle":
-				g.drawRect(200, 200, 80, 60);
-				break;
-			case "Oval":
-				break;
-			case "Circle":
-				break;
-			case "Triangle":
-				break;
-			case "Line":
-				break;
-			case "Segment":
-				break;
-			case "Arc":
-				break;
-			}
-			
-			g.setColor(selectedColor);
+
+				setBackground(Color.CYAN);
+				
+				switch(selectedShape) {
+				case "Rectangle":
+					g.drawRect(200, 200, 80, 60);
+					break;
+				case "Oval":
+					break;
+				case "Circle":
+					break;
+				case "Triangle":
+					break;
+				case "Line":
+					break;
+				case "Segment":
+					break;
+				case "Arc":
+					break;
+				
+				}
+				
+				g.setColor(selectedColor);
 			
 			}
 		}
