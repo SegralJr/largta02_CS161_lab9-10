@@ -39,26 +39,9 @@ public class Menus extends JFrame implements ActionListener {
 		colorsRadio = new JRadioButton();
 		buttonGroup = new ButtonGroup();
 		
-		figuresArr = new JMenuItem[figures.length];
-		colorsArr = new JRadioButtonMenuItem[colors.length];
-		
 		// Menus
-		figuresMenu = new JMenu("Figures");
-		for(int k = 0; k < figures.length; k++) {
-			figuresMenu.addSeparator();
-			figuresArr[k] = (new JMenuItem(figures[k]));
-			figuresMenu.add(figuresArr[k]);
-		}
-		
-		
-		colorsMenu = new JMenu("Colors");
-		for(int k = 0; k < colors.length; k++) {
-			colorsArr[k] = new JRadioButtonMenuItem();
-			colorsMenu.addSeparator();
-			colorsArr[k].setBackground(colors[k]);
-			buttonGroup.add(colorsArr[k]);
-			colorsMenu.add(colorsArr[k]);
-		}
+		buildFigures(figures);
+		buildColors(colors);
 		
 		// Menu bar
 		JMenuBar bar1 = new JMenuBar();
@@ -137,23 +120,28 @@ public class Menus extends JFrame implements ActionListener {
 		}
 	}
 	
-	public void buildFigures(String[] fig) {
-		JMenuItem[] menuItemArr = new JMenuItem[fig.length]; // Create menuItemArr
+	public void buildFigures(String[] figures) {
 		
-		for(int k = 0; k < fig.length; k++) { // Instantiates each menu item
-			menuItemArr[k] = new JMenuItem(fig[k]);
-			menuItemArr[k].addActionListener(this);
-			figuresMenu.add(menuItemArr[k]);
+		figuresArr = new JMenuItem[figures.length];
+		figuresMenu = new JMenu("Figures");
+		for(int k = 0; k < figures.length; k++) {
+			figuresMenu.addSeparator();
+			figuresArr[k] = (new JMenuItem(figures[k]));
+			figuresMenu.add(figuresArr[k]);
 		}
+		
 	}
 	
 	public void buildColors(Color[] col) {
-		JMenuItem[] menuItemArr = new JMenuItem[col.length];
 		
-		for(int k = 0; k < col.length; k++) {
-			menuItemArr[k] = new JMenuItem();
-			menuItemArr[k].setBackground(col[k]);
-			figuresMenu.add(menuItemArr[k]);
+		colorsArr = new JRadioButtonMenuItem[colors.length];
+		colorsMenu = new JMenu("Colors");
+		for(int k = 0; k < colors.length; k++) {
+			colorsArr[k] = new JRadioButtonMenuItem();
+			colorsMenu.addSeparator();
+			colorsArr[k].setBackground(colors[k]);
+			buttonGroup.add(colorsArr[k]);
+			colorsMenu.add(colorsArr[k]);
 		}
 	}
 	/*
