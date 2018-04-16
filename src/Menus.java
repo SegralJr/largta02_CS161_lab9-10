@@ -36,19 +36,14 @@ public class Menus extends JFrame implements ActionListener {
 	public Menus(String[] figures, Color[] colors) {
 		super("Shape drawing coloring thing.exe");
 		
-		colorsRadio = new JRadioButton();
-		buttonGroup = new ButtonGroup();
-		
 		// Menus
 		buildFigures(figures);
 		buildColors(colors);
 		
 		// Menu bar
-		JMenuBar bar1 = new JMenuBar();
-		setJMenuBar(bar1);
-		bar1.add(figuresMenu);
-		bar1.add(colorsMenu);
+		buildJMenuBar();
 		
+		// Builds the window
 		buildWindow();
 	}
 	
@@ -58,9 +53,15 @@ public class Menus extends JFrame implements ActionListener {
 		buttonPanel = new JPanel();
 		containerPanel = new JPanel();
 		
+		// Sets the pane to "window"
 		Container window = getContentPane();
 		
+		// Instantiates menu bar
 		bar1 = new JMenuBar();
+		
+		// Creates the button groups
+		colorsRadio = new JRadioButton();
+		buttonGroup = new ButtonGroup();
 		
 		buttonPanel.setLayout(new GridLayout(0,4));
 		buttonPanel.add(paintButton = new JButton("PAINTBUTTON"), BorderLayout.NORTH);
@@ -132,7 +133,7 @@ public class Menus extends JFrame implements ActionListener {
 		
 	}
 	
-	public void buildColors(Color[] col) {
+	public void buildColors(Color[] colors) {
 		
 		colorsArr = new JRadioButtonMenuItem[colors.length];
 		colorsMenu = new JMenu("Colors");
@@ -144,12 +145,14 @@ public class Menus extends JFrame implements ActionListener {
 			colorsMenu.add(colorsArr[k]);
 		}
 	}
-	/*
-	 * I don't know what this was used for but until I discover it it's commented out
+	
 	public void buildJMenuBar() {
-		
+		JMenuBar bar1 = new JMenuBar();
+		setJMenuBar(bar1);
+		bar1.add(figuresMenu);
+		bar1.add(colorsMenu);
 	}
-	*/
+	
 	class FigureListener implements ActionListener {
 		
 		@Override
