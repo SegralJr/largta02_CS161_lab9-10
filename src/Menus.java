@@ -123,20 +123,23 @@ public class Menus extends JFrame implements ActionListener {
 	
 	public void buildFigures(String[] figures) {
 		
+		ActionListener FigureListener = new FigureListener();
+		
 		figuresArr = new JMenuItem[figures.length];
 		figuresMenu = new JMenu("Figures");
 		for(int k = 0; k < figures.length; k++) {
 			figuresArr[k] = new JMenuItem();
 			figuresMenu.addSeparator();
 			figuresArr[k] = (new JMenuItem(figures[k]));
-			figuresArr[k].addActionListener(this);
+			figuresArr[k].addActionListener(FigureListener);
 			figuresMenu.add(figuresArr[k]);
-			figuresMenu.addActionListener(this);
 		}
 		
 	}
 	
 	public void buildColors(Color[] colors) {
+		
+		ActionListener ColorListener = new ColorListener();
 		
 		colorsArr = new JRadioButtonMenuItem[colors.length];
 		colorsMenu = new JMenu("Colors");
@@ -145,9 +148,8 @@ public class Menus extends JFrame implements ActionListener {
 			colorsMenu.addSeparator();
 			colorsArr[k].setBackground(colors[k]);
 			buttonGroup.add(colorsArr[k]);
-			colorsArr[k].addActionListener(this);
+			colorsArr[k].addActionListener(ColorListener);
 			colorsMenu.add(colorsArr[k]);
-			colorsMenu.addActionListener(this);
 		}
 	}
 	
@@ -211,6 +213,9 @@ public class Menus extends JFrame implements ActionListener {
 				
 				g.setColor(selectedColor);
 			
+			}
+			else {
+				System.out.println("Error in paintComponent");
 			}
 		}
 	}
