@@ -174,9 +174,7 @@ public class Menus extends JFrame implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
-			System.out.println("KNSDFO:RJNSDLRFK");
-			
+			((JRadioButtonMenuItem) e.getSource()).getBackground();
 		}
 		
 	}
